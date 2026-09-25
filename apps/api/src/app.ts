@@ -1,11 +1,18 @@
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
+
 import profileRoutes from "./routes/profile.routes.js";
 import educationRoutes from "./routes/education.routes.js";
 import experienceRoutes from "./routes/experience.routes.js";
 import projectRoutes from "./routes/project.routes.js";
 import skillRoutes from "./routes/skill.routes.js";
+
+import { errorHandler } from "./middleware/error-handler.middleware.js";
+import { notFoundHandler } from "./middleware/not-found.middleware.js";
+
+import { loggerMiddleware } from "./middleware/logger.middleware.js";
+import { apiRateLimiter } from "./middleware/rate-limit.middleware.js";
 
 const app = express();
 
@@ -18,6 +25,9 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use(loggerMiddleware);
+app.use(apiRateLimiter);
 
 app.get("/api/v1/health", (_req, res) => {
   res.status(200).json({
@@ -33,5 +43,8 @@ app.use("/api/v1/experiences", experienceRoutes);
 app.use("/api/v1/educations", educationRoutes);
 app.use("/api/v1/skills", skillRoutes);
 app.use("/api/v1/projects", projectRoutes);
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export default app;
