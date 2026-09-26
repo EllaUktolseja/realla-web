@@ -27,7 +27,7 @@ await ProfileModel.findOneAndUpdate(
     whatsappUrl: "https://wa.me/6200000000000",
     resumeUrl: "",
   },
-  { upsert: true, new: true, setDefaultsOnInsert: true },
+  { upsert: true, returnDocument: "after", setDefaultsOnInsert: true },
 );
 
 const experiences = [
@@ -47,7 +47,7 @@ for (const experience of experiences) {
   await ExperienceModel.findOneAndUpdate(
     { company: experience.company, position: experience.position },
     experience,
-    { upsert: true, new: true, setDefaultsOnInsert: true },
+    { upsert: true, returnDocument: "after", setDefaultsOnInsert: true },
   );
 }
 
@@ -66,7 +66,7 @@ for (const education of educations) {
   await EducationModel.findOneAndUpdate(
     { institution: education.institution, degree: education.degree },
     education,
-    { upsert: true, new: true, setDefaultsOnInsert: true },
+    { upsert: true, returnDocument: "after", setDefaultsOnInsert: true },
   );
 }
 
@@ -81,7 +81,7 @@ for (const skill of skills) {
   await SkillModel.findOneAndUpdate(
     { name: skill.name },
     skill,
-    { upsert: true, new: true, setDefaultsOnInsert: true },
+    { upsert: true, returnDocument: "after", setDefaultsOnInsert: true },
   );
 }
 
@@ -104,7 +104,7 @@ for (const project of projects) {
   await ProjectModel.findOneAndUpdate(
     { slug: project.slug },
     project,
-    { upsert: true, new: true, setDefaultsOnInsert: true },
+    { upsert: true, returnDocument: "after", setDefaultsOnInsert: true },
   );
 }
 
