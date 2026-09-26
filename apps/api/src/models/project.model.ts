@@ -15,66 +15,20 @@ export interface Project {
 
 const projectSchema = new Schema<Project>(
   {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
-
-    shortDescription: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    description: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    imageUrl: {
-      type: String,
-      trim: true,
-    },
-
-    liveUrl: {
-      type: String,
-      trim: true,
-    },
-
-    repositoryUrl: {
-      type: String,
-      trim: true,
-    },
-
-    technologies: {
-      type: [String],
-      default: [],
-    },
-
-    featured: {
-      type: Boolean,
-      default: false,
-    },
-
-    sortOrder: {
-      type: Number,
-      default: 0,
-    },
+    title: { type: String, required: true, trim: true },
+    slug: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    shortDescription: { type: String, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
+    imageUrl: { type: String, trim: true },
+    liveUrl: { type: String, trim: true },
+    repositoryUrl: { type: String, trim: true },
+    technologies: { type: [String], default: [] },
+    featured: { type: Boolean, default: false },
+    sortOrder: { type: Number, default: 0 },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  },
+  { timestamps: true, versionKey: false },
 );
+
+projectSchema.index({ sortOrder: 1 });
 
 export const ProjectModel = model<Project>("Project", projectSchema);

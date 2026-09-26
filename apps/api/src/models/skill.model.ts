@@ -10,37 +10,15 @@ export interface Skill {
 
 const skillSchema = new Schema<Skill>(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    category: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    level: {
-      type: String,
-      trim: true,
-    },
-
-    yearsOfExperience: {
-      type: Number,
-      min: 0,
-    },
-
-    sortOrder: {
-      type: Number,
-      default: 0,
-    },
+    name: { type: String, required: true, trim: true },
+    category: { type: String, required: true, trim: true },
+    level: { type: String, trim: true },
+    yearsOfExperience: { type: Number, min: 0 },
+    sortOrder: { type: Number, default: 0 },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  },
+  { timestamps: true, versionKey: false },
 );
+
+skillSchema.index({ sortOrder: 1 });
 
 export const SkillModel = model<Skill>("Skill", skillSchema);
