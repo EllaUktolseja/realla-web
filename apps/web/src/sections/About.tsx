@@ -1,34 +1,33 @@
+import { useEffect, useState } from "react";
+
 import Section from "@/components/Section";
+import { getProfile } from "@/services/api";
+import type { Profile } from "@/types/portfolio";
 
 function About() {
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    void getProfile().then(setProfile).catch(() => undefined);
+  }, []);
+
   return (
-    <Section
-      id="about"
-      eyebrow="About"
-      title="Engineering with purpose."
-    >
+    <Section id="about" eyebrow="About" title="Engineering with purpose.">
       <div className="grid gap-8 md:grid-cols-[1.5fr_1fr]">
-        <div className="space-y-5 text-muted-foreground leading-8">
+        <div className="space-y-5 leading-8 text-muted-foreground">
           <p>
-            I&apos;m a software engineer interested in building reliable,
-            maintainable, and scalable web applications.
+            {profile?.bio ??
+              "I’m a software engineer interested in building reliable, maintainable, and scalable web applications."}
           </p>
-
           <p>
-            My approach combines product thinking with solid engineering
-            fundamentals—from API design and database architecture to frontend
-            experience and deployment.
-          </p>
-
-          <p>
-            I enjoy turning complex requirements into systems that are
-            understandable, testable, and practical to maintain.
+            This placeholder content is intentionally simple. Replace it with
+            your real story, achievements, and engineering philosophy when the
+            final visual design is applied.
           </p>
         </div>
 
-        <div className="rounded-xl border p-6">
+        <div className="rounded-xl border border-border p-6">
           <p className="text-sm font-medium">Focus areas</p>
-
           <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
             <li>Full-stack web development</li>
             <li>REST API architecture</li>

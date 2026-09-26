@@ -11,44 +11,16 @@ export interface Education {
 
 const educationSchema = new Schema<Education>(
   {
-    institution: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    degree: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    field: {
-      type: String,
-      trim: true,
-    },
-
-    startDate: {
-      type: Date,
-      required: true,
-    },
-
-    endDate: {
-      type: Date,
-    },
-
-    description: {
-      type: String,
-      trim: true,
-    },
+    institution: { type: String, required: true, trim: true },
+    degree: { type: String, required: true, trim: true },
+    field: { type: String, trim: true },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date },
+    description: { type: String, trim: true },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  },
+  { timestamps: true, versionKey: false },
 );
 
-export const EducationModel = model<Education>(
-  "Education",
-  educationSchema,
-);
+educationSchema.index({ startDate: -1 });
+
+export const EducationModel = model<Education>("Education", educationSchema);

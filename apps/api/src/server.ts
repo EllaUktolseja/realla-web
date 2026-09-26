@@ -1,22 +1,37 @@
-import dotenv from "dotenv";
 import app from "./app.js";
-import { connectDatabase } from "./config/database.js";
+import { connectDatabase, disconnectDatabase } from "./config/database.js";
+import { env } from "./config/env.js";
 
-dotenv.config({
-    path: "../../.env",
-});
+const server = await connectAndListen();
 
-const PORT = Number(process.env.PORT ?? 4000);
+async function connectAndListen() {
+  await connectDatabase();
 
-async function bootstrap(): Promise<void> {
-    await connectDatabase();
-    
-    app.listen(PORT, () => {
-    console.log(`API Server running on http://localhost:${PORT}`); 
-    });
+  return app.listen(env.PORT, () => {
+    console.log(`API server listening on http://localhost:${env.PORT}`);
+  });
 }
 
-bootstrap().catch((error: unknown) => {
-    console.error("Failed to start API Server: ", error);
-    process.exit(1);
-})
+let shuttingDown = false;
+
+async function shutdown(signal: string): Promise<void> {
+  if (shuttingDown) return;
+  shuttingDown = true;
+
+  console.log(`Received ${signal}. Shutting down...`);
+
+  server.close(async () => {
+    try {
+      await disconnectDatabase();
+      process.exit(0);
+    } catch (error) {
+      console.error("Failed during shutdown", error);
+      process.exit(1);
+    }
+  });
+
+  setTimeout(() => process.exit(1), 10_000).unref();
+}
+
+process.on("SIGINT", () => void shutdown("SIGINT"));
+process.on("SIGTERM", () => void shutdown("SIGTERM"));

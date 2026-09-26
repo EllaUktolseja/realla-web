@@ -10,41 +10,16 @@ export interface ContactMessage {
 
 const contactMessageSchema = new Schema<ContactMessage>(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    email: {
-      type: String,
-      required: true,
-      trim: true,
-      lowercase: true,
-    },
-
-    subject: {
-      type: String,
-      trim: true,
-    },
-
-    message: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    status: {
-      type: String,
-      enum: ["new", "read", "replied"],
-      default: "new",
-    },
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, trim: true, lowercase: true },
+    subject: { type: String, trim: true },
+    message: { type: String, required: true, trim: true },
+    status: { type: String, enum: ["new", "read", "replied"], default: "new" },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  },
+  { timestamps: true, versionKey: false },
 );
+
+contactMessageSchema.index({ createdAt: -1 });
 
 export const ContactMessageModel = model<ContactMessage>(
   "ContactMessage",
