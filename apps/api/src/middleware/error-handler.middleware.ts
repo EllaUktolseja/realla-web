@@ -5,9 +5,12 @@ export const errorHandler: ErrorRequestHandler = (
   error,
   _req,
   res,
-  _next,
+  next,
 ) => {
-  if (res.headersSent) return;
+  if (res.headersSent) {
+    next(error);
+    return;
+  }
 
   if (error instanceof mongoose.Error.ValidationError) {
     res.status(400).json({
