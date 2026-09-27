@@ -109,20 +109,24 @@ const projects = [
   {
     title: "Realla Web",
     slug: "realla-web",
-    shortDescription: "A production-oriented personal portfolio platform.",
-    description: "A full-stack portfolio built to present projects, experience, technical skills, and contact information through a focused editorial interface.",
+    shortDescription:
+      "A modern full-stack portfolio website built to showcase experience, projects, and technical skills.",
+    description:
+      "Realla Web is a personal portfolio platform designed with a clean and focused interface. The project combines a React frontend with a REST API and MongoDB backend, giving the portfolio a real full-stack architecture instead of a static presentation site.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "https://github.com/EllaUktolseja/realla-web",
-    technologies: ["React", "Vite", "Express", "MongoDB"],
+    technologies: ["React", "TypeScript", "Vite", "Express", "MongoDB"],
     featured: true,
     sortOrder: 1,
   },
   {
     title: "GY-O-REAL E-Commerce",
     slug: "gy-o-real-ecommerce",
-    shortDescription: "Full-stack fashion commerce platform prototype.",
-    description: "An e-commerce application exploring product catalogs, categories, database-backed APIs, and a modern shopping experience.",
+    shortDescription:
+      "A full-stack fashion e-commerce platform built around a database-backed product experience.",
+    description:
+      "GY-O-REAL E-Commerce is a full-stack shopping platform exploring product catalogs, categories, database-backed APIs, and a modern storefront experience.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "https://github.com/EllaUktolseja/GY-O-REAL-E-Commerce",
@@ -133,8 +137,10 @@ const projects = [
   {
     title: "FoodFoundry",
     slug: "foodfoundry",
-    shortDescription: "Community-focused dessert feedback platform.",
-    description: "A product prototype designed to collect real customer feedback around dessert products and help turn community input into product decisions.",
+    shortDescription:
+      "A community-focused food showcase and feedback platform for discovering customer preferences.",
+    description:
+      "FoodFoundry is a full-stack web application created to showcase food products and collect direct customer feedback. The platform is designed around a simple experience: introduce the product, let people explore it, and make it easy for visitors to share what they think.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "https://github.com/EllaUktolseja/FoodFoundry",
@@ -145,8 +151,10 @@ const projects = [
   {
     title: "Meatloop",
     slug: "meatloop",
-    shortDescription: "Food marketplace interface concept for Gen Z.",
-    description: "A frontend exploration of a food-waste marketplace experience with bold visual hierarchy, responsive cards, and a playful interaction model.",
+    shortDescription:
+      "A food marketplace interface concept with a bold, youth-focused visual direction.",
+    description:
+      "Meatloop is a frontend exploration of a food-waste marketplace experience with bold visual hierarchy, responsive cards, and a playful interaction model.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "",
@@ -157,8 +165,10 @@ const projects = [
   {
     title: "Supply Chain Monitor",
     slug: "supply-chain-monitor",
-    shortDescription: "Security research dashboard concept.",
-    description: "A research-oriented interface concept for visualizing software supply-chain components, runtime signals, and anomaly indicators.",
+    shortDescription:
+      "A security research dashboard concept for software supply-chain monitoring.",
+    description:
+      "A research-oriented interface concept for visualizing software supply-chain components, runtime signals, and anomaly indicators.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "",
