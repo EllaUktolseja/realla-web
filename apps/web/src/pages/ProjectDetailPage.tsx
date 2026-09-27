@@ -1,71 +1,83 @@
 import { useEffect, useState } from "react";
 
 import Footer from "@/sections/Footer";
+import { getProjectBySlug } from "@/services/api";
 import type { Project } from "@/types/portfolio";
 
 interface ProjectDetailPageProps {
   slug: string;
 }
 
-const dummyProjects: Record<string, Project> = {
-  "realla-web": {
-    title: "Realla Web",
-    slug: "realla-web",
-    shortDescription:
-      "A modern full-stack portfolio website built to showcase experience, projects, and technical skills.",
-    description:
-      "Realla Web is a personal portfolio platform designed with a clean and focused interface. The project combines a React frontend with a REST API and MongoDB backend, giving the portfolio a real full-stack architecture instead of a static presentation site.",
-    imageUrl: undefined,
-    liveUrl: "https://example.com",
-    repositoryUrl: "https://github.com/EllaUktolseja/realla-web",
-    technologies: ["React", "TypeScript", "Vite", "Express", "MongoDB"],
-    featured: true,
-    sortOrder: 1,
-  },
-  foodfoundry: {
-    title: "FoodFoundry",
-    slug: "foodfoundry",
-    shortDescription:
-      "A community-focused food showcase and feedback platform for discovering customer preferences.",
-    description:
-      "FoodFoundry is a full-stack web application created to showcase food products and collect direct customer feedback. The platform is designed around a simple experience: introduce the product, let people explore it, and make it easy for visitors to share what they think.",
-    imageUrl: undefined,
-    technologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
-    featured: true,
-    sortOrder: 2,
-  },
-};
-
-function getDummyProject(slug: string): Project {
-  return (
-    dummyProjects[slug] ?? {
-      title: "Project Showcase",
-      slug,
-      shortDescription:
-        "A selected project from my development work and learning journey.",
-      description:
-        "This project is part of my ongoing work building practical full-stack applications with modern web technologies. More details will be added as the project develops.",
-      technologies: ["React", "TypeScript", "Node.js"],
-      featured: false,
-      sortOrder: 99,
-    }
-  );
-}
-
 function ProjectDetailPage({ slug }: ProjectDetailPageProps) {
   const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Temporary dummy data. Replace this with getProjectBySlug(slug)
-    // when the project API data is ready.
-    setProject(getDummyProject(slug));
+    let active = true;
+
+    setLoading(true);
+    setError(null);
+
+    void getProjectBySlug(slug)
+      .then((item) => {
+        if (active) {
+          setProject(item);
+        }
+      })
+      .catch((requestError: unknown) => {
+        if (active) {
+          setProject(null);
+          setError(
+            requestError instanceof Error
+              ? requestError.message
+              : "Unable to load project.",
+          );
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
   }, [slug]);
 
-  if (!project) {
+  if (loading) {
     return (
       <>
         <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
           <p className="text-sm text-muted-foreground">Loading project...</p>
+        </section>
+        <Footer />
+      </>
+    );
+  }
+
+  if (error || !project) {
+    return (
+      <>
+        <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <a
+            href="/projects"
+            className="text-sm font-semibold text-primary transition-colors hover:text-foreground"
+          >
+            ← Back to projects
+          </a>
+          <div className="mt-10 max-w-xl">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">
+              Project
+            </p>
+            <h1 className="mt-3 text-4xl font-black tracking-tight">
+              Project not found
+            </h1>
+            <p className="mt-4 leading-7 text-muted-foreground">
+              {error ?? "This project does not exist or is no longer available."}
+            </p>
+          </div>
         </section>
         <Footer />
       </>
