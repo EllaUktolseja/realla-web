@@ -9,36 +9,28 @@ function Skills() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    void getSkills()
-      .then(setSkills)
-      .catch(() => setError("Unable to load skills."));
+    void getSkills().then(setSkills).catch(() => setError("Unable to load skills."));
   }, []);
 
   const categories = [...new Set(skills.map((skill) => skill.category))];
 
   return (
-    <Section id="skills" eyebrow="Skills" title="Tools I work with.">
+    <Section id="skills" eyebrow="Toolkit" title="Technologies I use to turn ideas into software.">
       {error ? (
         <p className="text-sm text-destructive">{error}</p>
       ) : skills.length === 0 ? (
         <p className="text-muted-foreground">No skills available yet.</p>
       ) : (
-        <div className="space-y-8">
+        <div className="grid gap-5 md:grid-cols-2">
           {categories.map((category) => (
-            <div key={category}>
-              <h3 className="text-lg font-semibold">{category}</h3>
-              <div className="mt-4 flex flex-wrap gap-3">
+            <div key={category} className="rounded-3xl border border-border bg-card p-6">
+              <h3 className="font-bold">{category}</h3>
+              <div className="mt-5 flex flex-wrap gap-2">
                 {skills
                   .filter((skill) => skill.category === category)
                   .map((skill) => (
-                    <span
-                      key={skill.name}
-                      className="rounded-lg border border-border px-4 py-3 text-sm"
-                    >
+                    <span key={skill.name} className="rounded-full border border-border bg-background px-3 py-1.5 text-sm font-medium">
                       {skill.name}
-                      {skill.level ? (
-                        <span className="ml-2 text-muted-foreground">· {skill.level}</span>
-                      ) : null}
                     </span>
                   ))}
               </div>
