@@ -1,52 +1,65 @@
 import { useEffect, useState } from "react";
 
 import Footer from "@/sections/Footer";
-import { getProjectBySlug } from "@/services/api";
 import type { Project } from "@/types/portfolio";
 
 interface ProjectDetailPageProps {
   slug: string;
 }
 
+const dummyProjects: Record<string, Project> = {
+  "realla-web": {
+    title: "Realla Web",
+    slug: "realla-web",
+    shortDescription:
+      "A modern full-stack portfolio website built to showcase experience, projects, and technical skills.",
+    description:
+      "Realla Web is a personal portfolio platform designed with a clean and focused interface. The project combines a React frontend with a REST API and MongoDB backend, giving the portfolio a real full-stack architecture instead of a static presentation site.",
+    imageUrl: undefined,
+    liveUrl: "https://example.com",
+    repositoryUrl: "https://github.com/EllaUktolseja/realla-web",
+    technologies: ["React", "TypeScript", "Vite", "Express", "MongoDB"],
+    featured: true,
+    sortOrder: 1,
+  },
+  foodfoundry: {
+    title: "FoodFoundry",
+    slug: "foodfoundry",
+    shortDescription:
+      "A community-focused food showcase and feedback platform for discovering customer preferences.",
+    description:
+      "FoodFoundry is a full-stack web application created to showcase food products and collect direct customer feedback. The platform is designed around a simple experience: introduce the product, let people explore it, and make it easy for visitors to share what they think.",
+    imageUrl: undefined,
+    technologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
+    featured: true,
+    sortOrder: 2,
+  },
+};
+
+function getDummyProject(slug: string): Project {
+  return (
+    dummyProjects[slug] ?? {
+      title: "Project Showcase",
+      slug,
+      shortDescription:
+        "A selected project from my development work and learning journey.",
+      description:
+        "This project is part of my ongoing work building practical full-stack applications with modern web technologies. More details will be added as the project develops.",
+      technologies: ["React", "TypeScript", "Node.js"],
+      featured: false,
+      sortOrder: 99,
+    }
+  );
+}
+
 function ProjectDetailPage({ slug }: ProjectDetailPageProps) {
   const [project, setProject] = useState<Project | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setProject(null);
-    setError(null);
-
-    void getProjectBySlug(slug)
-      .then(setProject)
-      .catch((reason: unknown) => {
-        setError(
-          reason instanceof Error ? reason.message : "Project not found.",
-        );
-      });
+    // Temporary dummy data. Replace this with getProjectBySlug(slug)
+    // when the project API data is ready.
+    setProject(getDummyProject(slug));
   }, [slug]);
-
-  if (error) {
-    return (
-      <>
-        <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-          <a
-            href="/projects"
-            className="text-sm font-semibold text-primary hover:underline"
-          >
-            ← Back to projects
-          </a>
-          <p className="mt-10 text-xs font-bold uppercase tracking-[0.24em] text-primary">
-            Project
-          </p>
-          <h1 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-            Project not found.
-          </h1>
-          <p className="mt-4 max-w-xl text-muted-foreground">{error}</p>
-        </section>
-        <Footer />
-      </>
-    );
-  }
 
   if (!project) {
     return (
@@ -121,6 +134,9 @@ function ProjectDetailPage({ slug }: ProjectDetailPageProps) {
                   <p className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
                     {project.title}
                   </p>
+                  <p className="mt-3 max-w-xl leading-7 text-muted-foreground">
+                    {project.shortDescription}
+                  </p>
                 </div>
               </div>
             )}
@@ -137,7 +153,7 @@ function ProjectDetailPage({ slug }: ProjectDetailPageProps) {
             </div>
             <div>
               <p className="text-lg leading-8 text-muted-foreground">
-                {project.description || project.shortDescription}
+                {project.description}
               </p>
             </div>
           </div>
