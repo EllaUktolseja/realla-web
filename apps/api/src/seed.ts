@@ -109,6 +109,7 @@ const projects = [
   {
     title: "Realla Web",
     slug: "realla-web",
+    status: "ongoing",
     shortDescription:
       "A modern full-stack portfolio website built to showcase experience, projects, and technical skills.",
     description:
@@ -119,10 +120,19 @@ const projects = [
     technologies: ["React", "TypeScript", "Vite", "Express", "MongoDB"],
     featured: true,
     sortOrder: 1,
+    progress: 70,
+    currentFocus: ["Polishing portfolio UI", "Connecting project detail data", "Preparing production deployment"],
+    milestones: [
+      { title: "Project foundation", description: "Set up the monorepo, frontend, backend, and development workflow.", completed: true },
+      { title: "Portfolio API", description: "Build profile, experience, education, skill, project, and contact endpoints.", completed: true },
+      { title: "Portfolio UI", description: "Build the responsive portfolio pages and project detail experience.", completed: true },
+      { title: "Production readiness", description: "Finish contact delivery, environment configuration, testing, and deployment.", completed: false },
+    ],
   },
   {
     title: "GY-O-REAL E-Commerce",
     slug: "gy-o-real-ecommerce",
+    status: "ongoing",
     shortDescription:
       "A full-stack fashion e-commerce platform built around a database-backed product experience.",
     description:
@@ -133,28 +143,53 @@ const projects = [
     technologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
     featured: true,
     sortOrder: 2,
+    progress: 45,
+    currentFocus: ["Storefront implementation", "Product and category flows", "Database-backed shopping experience"],
+    milestones: [
+      { title: "Repository and workspace setup", description: "Create the monorepo and development infrastructure.", completed: true },
+      { title: "Database foundation", description: "Set up PostgreSQL, Prisma, migrations, and seed data.", completed: true },
+      { title: "Catalog API", description: "Implement category and product CRUD endpoints.", completed: true },
+      { title: "Storefront", description: "Build the customer-facing product browsing and shopping flows.", completed: false },
+    ],
   },
   {
     title: "FoodFoundry",
     slug: "foodfoundry",
+    status: "planning",
     shortDescription:
       "A community-focused food showcase and feedback platform for discovering customer preferences.",
     description:
-      "FoodFoundry is a full-stack web application created to showcase food products and collect direct customer feedback. The platform is designed around a simple experience: introduce the product, let people explore it, and make it easy for visitors to share what they think.",
+      "FoodFoundry is a planned full-stack web application created to showcase food products and collect direct customer feedback. The platform is designed around a simple experience: introduce the product, let people explore it, and make it easy for visitors to share what they think.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "https://github.com/EllaUktolseja/FoodFoundry",
     technologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
     featured: true,
     sortOrder: 3,
+    goal: "Create a lightweight digital touchpoint for introducing dessert products, collecting customer feedback, and turning real community responses into useful product insights.",
+    scope: [
+      "Product showcase and introduction",
+      "Customer feedback submission",
+      "Feedback data storage and basic analysis",
+      "Responsive experience for mobile-first community use",
+      "Simple deployment and maintainable backend architecture",
+    ],
+    timeline: [
+      { phase: "Discovery", duration: "Week 1", description: "Validate the target audience, product positioning, feedback questions, and success criteria." },
+      { phase: "UX & Architecture", duration: "Week 2", description: "Define the user journey, page structure, API contract, database schema, and visual direction." },
+      { phase: "MVP Development", duration: "Weeks 3–4", description: "Build the product showcase, feedback flow, backend API, database, and validation." },
+      { phase: "Testing & Iteration", duration: "Week 5", description: "Test the experience with real users, review feedback quality, and improve usability." },
+      { phase: "Launch", duration: "Week 6", description: "Deploy the MVP, introduce it to the community, and monitor early responses." },
+    ],
   },
   {
     title: "Meatloop",
     slug: "meatloop",
+    status: "completed",
     shortDescription:
       "A food marketplace interface concept with a bold, youth-focused visual direction.",
     description:
-      "Meatloop is a frontend exploration of a food-waste marketplace experience with bold visual hierarchy, responsive cards, and a playful interaction model.",
+      "Meatloop is a completed frontend exploration of a food-waste marketplace experience with bold visual hierarchy, responsive cards, and a playful interaction model.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "",
@@ -165,16 +200,31 @@ const projects = [
   {
     title: "Supply Chain Monitor",
     slug: "supply-chain-monitor",
+    status: "planning",
     shortDescription:
       "A security research dashboard concept for software supply-chain monitoring.",
     description:
-      "A research-oriented interface concept for visualizing software supply-chain components, runtime signals, and anomaly indicators.",
+      "A planned research-oriented interface for visualizing software supply-chain components, runtime signals, and anomaly indicators.",
     imageUrl: "",
     liveUrl: "",
     repositoryUrl: "",
     technologies: ["React", "TypeScript", "Node.js", "eBPF"],
     featured: false,
     sortOrder: 5,
+    goal: "Explore a practical dashboard concept for correlating expected software supply-chain components with runtime behavioral signals.",
+    scope: [
+      "SBOM component overview",
+      "Runtime event visualization",
+      "Anomaly indicator presentation",
+      "Service and dependency context",
+      "Research-friendly dashboard structure",
+    ],
+    timeline: [
+      { phase: "Research", duration: "Weeks 1–2", description: "Review the problem space, relevant telemetry, SBOM data, and research requirements." },
+      { phase: "Concept Design", duration: "Week 3", description: "Define the dashboard information architecture and core monitoring views." },
+      { phase: "Prototype", duration: "Weeks 4–6", description: "Build a proof of concept for ingesting and visualizing static and runtime signals." },
+      { phase: "Evaluation", duration: "Weeks 7–8", description: "Evaluate the prototype with representative scenarios and refine the presentation." },
+    ],
   },
 ];
 
