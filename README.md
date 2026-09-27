@@ -54,6 +54,17 @@ npm run dev
 Web: http://localhost:5173  
 API: http://localhost:4000
 
+## Portfolio routes
+
+- `/` — portfolio overview
+- `/experience` — experience and education
+- `/tech-stack` — skills and technologies
+- `/projects` — project directory
+- `/projects/:slug` — project detail / case study
+- `/contact` — contact form and direct contact links
+
+The homepage intentionally stays concise. Detailed information lives on dedicated pages so the portfolio remains easy to scan on desktop and mobile.
+
 ## API
 
 - GET /api/v1/health
