@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.985 0.004 286);
+  --foreground: oklch(0.18 0.025 286);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --card-foreground: oklch(0.18 0.025 286);
+  --muted: oklch(0.965 0.01 286);
+  --muted-foreground: oklch(0.48 0.025 286);
+  --primary: oklch(0.52 0.24 293);
+  --primary-foreground: oklch(0.99 0 0);
+  --border: oklch(0.9 0.02 286);
+  --input: oklch(0.9 0.02 286);
+  --ring: oklch(0.62 0.2 293);
   --destructive: oklch(0.577 0.245 27.325);
 }
 
@@ -32,6 +32,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
@@ -48,4 +49,18 @@ a,
 input,
 textarea {
   font: inherit;
+}
+
+::selection {
+  background: oklch(0.88 0.08 293);
+  color: oklch(0.2 0.03 293);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
 }

@@ -1,29 +1,42 @@
+import { useEffect, useState } from "react";
+
 import Navbar from "./components/Navbar";
-import About from "./sections/About";
-import Contact from "./sections/Contact";
-import Education from "./sections/Education";
-import Experience from "./sections/Experience";
-import Footer from "./sections/Footer";
-import Hero from "./sections/Hero";
-import Projects from "./sections/Projects";
-import Skills from "./sections/Skills";
+import ContactPage from "./pages/ContactPage";
+import ExperiencePage from "./pages/ExperiencePage";
+import HomePage from "./pages/HomePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import SkillsPage from "./pages/SkillsPage";
 
 function App() {
+  const [pathname, setPathname] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handlePopState = () => setPathname(window.location.pathname);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  function renderPage() {
+    if (pathname === "/" || pathname === "") return <HomePage />;
+    if (pathname === "/experience") return <ExperiencePage />;
+    if (pathname === "/tech-stack") return <SkillsPage />;
+    if (pathname === "/projects") return <ProjectsPage />;
+    if (pathname === "/contact") return <ContactPage />;
+
+    if (pathname.startsWith("/projects/")) {
+      const slug = decodeURIComponent(pathname.replace("/projects/", ""));
+      return <ProjectDetailPage slug={slug} />;
+    }
+
+    return <NotFoundPage />;
+  }
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <Navbar />
-
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Education />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-
-      <Footer />
+      <main>{renderPage()}</main>
     </div>
   );
 }
