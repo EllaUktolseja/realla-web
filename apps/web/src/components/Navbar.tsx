@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 
 const links = [
   ["/", "Home"],
@@ -11,7 +11,7 @@ const links = [
 function Navbar() {
   const [open, setOpen] = useState(false);
 
-  function navigate(event: React.MouseEvent<HTMLAnchorElement>, href: string) {
+  function navigate(event: MouseEvent<HTMLAnchorElement>, href: string) {
     if (href.startsWith("/") && !href.includes("://")) {
       event.preventDefault();
       window.history.pushState({}, "", href);
