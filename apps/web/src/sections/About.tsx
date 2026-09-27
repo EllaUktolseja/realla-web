@@ -12,29 +12,32 @@ function About() {
   }, []);
 
   return (
-    <Section id="about" eyebrow="About" title="Engineering with purpose.">
-      <div className="grid gap-8 md:grid-cols-[1.5fr_1fr]">
-        <div className="space-y-5 leading-8 text-muted-foreground">
-          <p>
+    <Section id="about" eyebrow="About me" title="Curious about how things work — and how to make them better.">
+      <div className="grid gap-8 lg:grid-cols-[1.35fr_0.65fr]">
+        <div className="rounded-3xl border border-border bg-card p-7 sm:p-9">
+          <p className="text-lg leading-8 text-foreground/85">
             {profile?.bio ??
-              "I’m a software engineer interested in building reliable, maintainable, and scalable web applications."}
+              "I’m a computer science student who enjoys turning ideas into working software. My interests sit around full-stack development, backend systems, databases, and the engineering practices that make projects easier to maintain."}
           </p>
-          <p>
-            This placeholder content is intentionally simple. Replace it with
-            your real story, achievements, and engineering philosophy when the
-            final visual design is applied.
+          <p className="mt-6 leading-7 text-muted-foreground">
+            I’m early in my professional journey, so this portfolio is less about
+            claiming expertise and more about showing the work: what I build, how I
+            think through problems, and what I’m learning along the way.
           </p>
         </div>
 
-        <div className="rounded-xl border border-border p-6">
-          <p className="text-sm font-medium">Focus areas</p>
-          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
-            <li>Full-stack web development</li>
-            <li>REST API architecture</li>
-            <li>Database design</li>
-            <li>Software engineering practices</li>
-            <li>Deployment & infrastructure</li>
-          </ul>
+        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+          {[
+            ["01", "Build & learn", "Turn concepts into working software."],
+            ["02", "Full-stack", "Move comfortably across the stack."],
+            ["03", "Own the details", "Care about quality beyond the UI."],
+          ].map(([number, title, description]) => (
+            <div key={number} className="rounded-3xl border border-border bg-card p-6">
+              <span className="text-xs font-bold text-primary">{number}</span>
+              <h3 className="mt-3 font-bold">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </Section>
