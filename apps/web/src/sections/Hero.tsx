@@ -42,13 +42,13 @@ function Hero() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <a
-              href="#projects"
+              href="/projects"
               className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/15 transition-transform hover:-translate-y-0.5"
             >
               View projects
             </a>
             <a
-              href="#contact"
+              href="/contact"
               className="rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold transition-colors hover:border-primary/30 hover:bg-primary/5"
             >
               Get in touch
