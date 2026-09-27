@@ -40,9 +40,24 @@ export interface Skill {
   sortOrder: number;
 }
 
+export type ProjectStatus = "completed" | "ongoing" | "planning";
+
+export interface ProjectMilestone {
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+export interface ProjectTimelineItem {
+  phase: string;
+  duration: string;
+  description: string;
+}
+
 export interface Project {
   title: string;
   slug: string;
+  status: ProjectStatus;
   shortDescription: string;
   description: string;
   imageUrl?: string;
@@ -51,6 +66,12 @@ export interface Project {
   technologies: string[];
   featured: boolean;
   sortOrder: number;
+  progress?: number;
+  currentFocus?: string[];
+  milestones?: ProjectMilestone[];
+  goal?: string;
+  scope?: string[];
+  timeline?: ProjectTimelineItem[];
 }
 
 export interface ContactInput {
