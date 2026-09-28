@@ -11,6 +11,7 @@ function Contact() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [form, setForm] = useState<ContactInput>(initialForm);
   const [status, setStatus] = useState<string | null>(null);
+  const [statusType, setStatusType] = useState<"success" | "error" | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -20,14 +21,17 @@ function Contact() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus(null);
+    setStatusType(null);
     setSubmitting(true);
 
     try {
       const response = await submitContact(form);
       setStatus(response.message);
+      setStatusType("success");
       setForm(initialForm);
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Unable to send message.");
+      setStatusType("error");
     } finally {
       setSubmitting(false);
     }
@@ -55,29 +59,71 @@ function Contact() {
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="space-y-2 text-sm font-medium">
               <span>Name</span>
-              <input required minLength={2} maxLength={100} value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
+              <input
+                required
+                name="name"
+                autoComplete="name"
+                minLength={2}
+                maxLength={100}
+                value={form.name}
+                onChange={(event) => setForm({ ...form, name: event.target.value })}
+                className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+              />
             </label>
             <label className="space-y-2 text-sm font-medium">
               <span>Email</span>
-              <input required type="email" maxLength={254} value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
+              <input
+                required
+                name="email"
+                type="email"
+                autoComplete="email"
+                maxLength={254}
+                value={form.email}
+                onChange={(event) => setForm({ ...form, email: event.target.value })}
+                className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+              />
             </label>
           </div>
 
           <label className="mt-5 block space-y-2 text-sm font-medium">
             <span>Subject <span className="font-normal text-muted-foreground">(optional)</span></span>
-            <input maxLength={200} value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })} className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
+            <input
+              name="subject"
+              autoComplete="off"
+              maxLength={200}
+              value={form.subject}
+              onChange={(event) => setForm({ ...form, subject: event.target.value })}
+              className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+            />
           </label>
 
           <label className="mt-5 block space-y-2 text-sm font-medium">
             <span>Message</span>
-            <textarea required minLength={10} maxLength={5000} rows={6} value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
+            <textarea
+              required
+              name="message"
+              minLength={10}
+              maxLength={5000}
+              rows={6}
+              value={form.message}
+              onChange={(event) => setForm({ ...form, message: event.target.value })}
+              className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+            />
           </label>
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <button type="submit" disabled={submitting} className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60">
               {submitting ? "Sending..." : "Send message"}
             </button>
-            {status && <p role="status" className="text-sm text-muted-foreground">{status}</p>}
+            {status && (
+              <p
+                role="status"
+                aria-live="polite"
+                className={statusType === "error" ? "text-sm text-destructive" : "text-sm text-muted-foreground"}
+              >
+                {status}
+              </p>
+            )}
           </div>
         </form>
       </div>
