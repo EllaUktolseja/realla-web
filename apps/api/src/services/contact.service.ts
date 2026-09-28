@@ -1,15 +1,17 @@
-import nodemailer from "nodemailer";
+import nodemailer, { type Transporter } from "nodemailer";
 
 import { env } from "../config/env.js";
 import { ContactMessageModel } from "../models/contact-message.model.js";
 import type { ContactInput } from "../validators/contact.validator.js";
 
-function getTransporter() {
+let transporter: Transporter | null = null;
+
+function getTransporter(): Transporter {
   if (!env.SMTP_USER || !env.SMTP_PASS || !env.CONTACT_EMAIL) {
     throw new Error("Contact email delivery is not configured");
   }
 
-  return nodemailer.createTransport({
+  transporter ??= nodemailer.createTransport({
     host: env.SMTP_HOST,
     port: env.SMTP_PORT,
     secure: env.SMTP_PORT === 465,
@@ -18,6 +20,8 @@ function getTransporter() {
       pass: env.SMTP_PASS,
     },
   });
+
+  return transporter;
 }
 
 export async function createContactMessage(input: ContactInput): Promise<void> {
@@ -28,9 +32,9 @@ export async function createContactMessage(input: ContactInput): Promise<void> {
     message: input.message,
   });
 
-  const transporter = getTransporter();
+  const mailer = getTransporter();
 
-  await transporter.sendMail({
+  await mailer.sendMail({
     from: env.SMTP_USER,
     to: env.CONTACT_EMAIL,
     replyTo: input.email,
