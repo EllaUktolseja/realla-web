@@ -42,7 +42,6 @@ realla-web/
 Copy-Item .env.example .env
 Copy-Item apps\web\.env.example apps\web\.env.local
 npm ci
-npm install --workspace=api nodemailer @types/nodemailer
 docker compose up -d
 npm run seed --workspace=api
 npm run typecheck
@@ -79,7 +78,7 @@ The homepage intentionally stays concise. Detailed information lives on dedicate
 - GET /api/v1/projects/:slug
 - POST /api/v1/contact
 
-The public API is intentionally read-only for portfolio content. Contact submissions are persisted in MongoDB and delivered to the configured Gmail inbox through SMTP. Project and profile images are URL-backed API fields so the frontend does not need to own portfolio assets.
+The public API is intentionally read-only for portfolio content. Contact submissions are persisted in MongoDB and delivered to the configured Gmail inbox through SMTP. The SMTP transporter is reused by the API process instead of being recreated for every submission. Project and profile images are URL-backed API fields so the frontend does not need to own portfolio assets.
 
 ## Contact email
 
