@@ -99,7 +99,10 @@ function ProjectDetailPage({ slug }: ProjectDetailPageProps) {
     );
   }
 
-  const status = statusMeta[project.status];
+  const status = statusMeta[project.status] ?? {
+    label: "Project",
+    description: "Project information is currently unavailable",
+  };
   const completedMilestones =
     project.milestones?.filter((milestone) => milestone.completed).length ?? 0;
 

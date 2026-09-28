@@ -37,7 +37,9 @@ function ProjectsPage() {
           ) : (
             <div className="mt-14 grid gap-6 lg:grid-cols-2">
               {projects.map((project, index) => {
-                const status = statusMeta[project.status];
+                const status = statusMeta[project.status] ?? {
+                  label: "Project",
+                };
                 return (
                   <a key={project.slug} href={`/projects/${encodeURIComponent(project.slug)}`}
                     className="group overflow-hidden rounded-[2rem] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-2xl hover:shadow-primary/8">
