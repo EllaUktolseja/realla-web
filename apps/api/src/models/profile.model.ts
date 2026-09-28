@@ -7,6 +7,7 @@ export interface Profile {
   email: string;
   phone?: string;
   location?: string;
+  imageUrl?: string;
   linkedinUrl?: string;
   githubUrl?: string;
   whatsappUrl?: string;
@@ -21,6 +22,7 @@ const profileSchema = new Schema<Profile>(
     email: { type: String, required: true, trim: true, lowercase: true },
     phone: { type: String, trim: true },
     location: { type: String, trim: true },
+    imageUrl: { type: String, trim: true },
     linkedinUrl: { type: String, trim: true },
     githubUrl: { type: String, trim: true },
     whatsappUrl: { type: String, trim: true },
