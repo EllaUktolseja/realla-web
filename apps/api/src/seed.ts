@@ -22,6 +22,7 @@ await ProfileModel.findOneAndUpdate(
     bio: "Computer science student building full-stack web applications with TypeScript, React, Node.js, and modern backend tooling. I enjoy learning by turning ideas into products.",
     email: "hello@example.com",
     location: "Bekasi, Indonesia",
+    imageUrl: "",
     linkedinUrl: "https://www.linkedin.com/",
     githubUrl: "https://github.com/EllaUktolseja",
     whatsappUrl: "https://wa.me/6200000000000",

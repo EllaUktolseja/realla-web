@@ -2,15 +2,15 @@
 
 :root {
   --background: oklch(0.985 0.004 286);
-  --foreground: oklch(0.18 0.025 286);
+  --foreground: oklch(0.17 0.025 286);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.025 286);
-  --muted: oklch(0.965 0.01 286);
-  --muted-foreground: oklch(0.48 0.025 286);
+  --card-foreground: oklch(0.17 0.025 286);
+  --muted: oklch(0.955 0.012 286);
+  --muted-foreground: oklch(0.46 0.025 286);
   --primary: oklch(0.52 0.24 293);
   --primary-foreground: oklch(0.99 0 0);
-  --border: oklch(0.9 0.02 286);
-  --input: oklch(0.9 0.02 286);
+  --border: oklch(0.89 0.018 286);
+  --input: oklch(0.88 0.018 286);
   --ring: oklch(0.62 0.2 293);
   --destructive: oklch(0.577 0.245 27.325);
 }
@@ -30,10 +30,7 @@
   --color-destructive: var(--destructive);
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
-}
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
 
 body {
   margin: 0;
@@ -44,50 +41,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-button,
-a,
-input,
-textarea {
-  font: inherit;
-}
-
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+button, a, input, textarea { font: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
 }
-
-::selection {
-  background: oklch(0.88 0.08 293);
-  color: oklch(0.2 0.03 293);
-}
+::selection { background: oklch(0.88 0.08 293); color: oklch(0.2 0.03 293); }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
 }
-
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-.animate-float {
-  animation: float 5s ease-in-out infinite;
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.52 0.24 293 / 0.16); }
+  50% { box-shadow: 0 0 0 7px oklch(0.52 0.24 293 / 0); }
 }
-
-.page-reveal {
-  animation: reveal 420ms ease-out both;
-}
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-pulse-ring { animation: pulse-ring 2.4s ease-in-out infinite; }
+.page-reveal { animation: reveal 420ms ease-out both; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

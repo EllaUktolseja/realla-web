@@ -7,8 +7,8 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest run --exclude dist/**",
+    "test:watch": "vitest --exclude dist/**",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "seed": "tsx src/seed.ts"
@@ -20,6 +20,7 @@
     "express-rate-limit": "^8.7.0",
     "helmet": "^8.3.0",
     "mongoose": "^9.10.2",
+    "nodemailer": "^7.0.13",
     "pino": "^10.3.1",
     "pino-http": "^11.0.0",
     "zod": "^4.6.5"
@@ -28,6 +29,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^24.13.6",
+    "@types/nodemailer": "^7.0.12",
     "@types/supertest": "^7.2.1",
     "supertest": "^7.3.0",
     "tsx": "^4.23.15",

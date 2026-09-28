@@ -78,4 +78,8 @@ The homepage intentionally stays concise. Detailed information lives on dedicate
 - GET /api/v1/projects/:slug
 - POST /api/v1/contact
 
-The public API is intentionally read-only for portfolio content. Contact messages are write-only from the public client's perspective; management can be added later without changing the public contracts.
+The public API is intentionally read-only for portfolio content. Contact submissions are persisted in MongoDB and delivered to the configured Gmail inbox through SMTP. The SMTP transporter is reused by the API process instead of being recreated for every submission. Project and profile images are URL-backed API fields so the frontend does not need to own portfolio assets.
+
+## Contact email
+
+Configure `SMTP_USER`, `SMTP_PASS`, and `CONTACT_EMAIL` in `.env`. Gmail SMTP uses `smtp.gmail.com`; port 587 uses STARTTLS. Google requires 2-Step Verification before an App Password can be created, and Google recommends using Sign in with Google where supported. Never commit the App Password to Git.
