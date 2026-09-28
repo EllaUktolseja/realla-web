@@ -31,14 +31,17 @@ function ProjectDetailPage({ slug }: ProjectDetailPageProps) {
   useEffect(() => {
     let active = true;
 
-    setLoading(true);
-    setError(null);
+    async function loadProject() {
+      setLoading(true);
+      setError(null);
 
-    void getProjectBySlug(slug)
-      .then((item) => {
-        if (active) setProject(item);
-      })
-      .catch((requestError: unknown) => {
+      try {
+        const item = await getProjectBySlug(slug);
+
+        if (active) {
+          setProject(item);
+        }
+      } catch (requestError: unknown) {
         if (active) {
           setProject(null);
           setError(
@@ -47,10 +50,14 @@ function ProjectDetailPage({ slug }: ProjectDetailPageProps) {
               : "Unable to load project.",
           );
         }
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
+
+    void loadProject();
 
     return () => {
       active = false;
